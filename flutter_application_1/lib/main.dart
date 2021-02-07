@@ -47,45 +47,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-/*----------------------------------------------------------------------------*/
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        backgroundColor: Colors.green[200],
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FlatButton(
-                onPressed: () {
-                  // searchRecipes();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyRecipes()));
-                },
-                color: Colors.green[200],
-                child: Text('Generate Recipes',
-                    style: TextStyle(color: Colors.white, fontSize: 16)))
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 Future<List<Recipe>> searchRecipes() async {
   // final response = await widget.dio.get('https://api.spoonacular.com/recipes/findByIngredients', queryParameters: { 'q' : query } );
   final response = await http.get(
@@ -210,6 +171,16 @@ class PantryScreenState extends State<PantryScreen> {
           title: const Text('FoodPantry'),
           backgroundColor: Colors.blueGrey[600],
           elevation: 5,
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyRecipes()));
+                },
+                color: Colors.blueGrey[400],
+                child: Text('Generate Recipes',
+                    style: TextStyle(color: Colors.white, fontSize: 16))),
+          ],
         ),
         body: ListView.builder(
           itemCount: items.length,
