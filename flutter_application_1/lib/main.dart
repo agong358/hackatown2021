@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
 Future<List<Recipe>> searchRecipes() async {
   // final response = await widget.dio.get('https://api.spoonacular.com/recipes/findByIngredients', queryParameters: { 'q' : query } );
   final response = await http.get(
-      'https://api.spoonacular.com/recipes/findByIngredients?ingredients=chicken&number=15&apiKey=' +
+      'https://api.spoonacular.com/recipes/findByIngredients?ingredients=milk,+bread,+tomato&number=15&apiKey=' +
           DotEnv().env['SPOONACULAR_API_KEY']);
 
   if (response.statusCode == 200) {
@@ -240,9 +240,36 @@ class PantryScreenState extends State<PantryScreen> {
           onPressed: () {
             showDialog(
                 context: context,
-                child: new SimpleDialog(
-                  title: new Text("Add Ingredient"),
-                ));
+                builder: (_) => new AlertDialog(
+                      title: new Text("Material Dialog"),
+                      content: new Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new TextField(
+                              decoration: InputDecoration(
+                                  hintText: "Input ingredient name"),
+                            ),
+                            new TextField(
+                              decoration: InputDecoration(
+                                  hintText: "Input expiration date"),
+                            ),
+                          ]),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('Cancel'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        FlatButton(
+                          child: Text('Add!'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    ));
           },
         ),
       ),
@@ -341,42 +368,57 @@ class CheckBoxListTileModel {
     return <CheckBoxListTileModel>[
       CheckBoxListTileModel(
         ingredientName: 'Milk',
-        date: 'July 7 1999',
+        date: 'July 7 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Ketchup',
-        date: 'June 4 1999',
+        ingredientName: 'Butter',
+        date: 'June 4 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Panna Cotta',
-        date: 'April 24 1999',
+        ingredientName: 'Bread',
+        date: 'April 24 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Opera',
-        date: 'December 23 1998',
+        ingredientName: 'Tomato',
+        date: 'December 23 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Milk',
-        date: 'July 7 1999',
+        ingredientName: 'Yogurt',
+        date: 'May 5 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Ketchup',
-        date: 'June 4 1999',
+        ingredientName: 'Celeri',
+        date: 'June 29 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Panna Cotta',
-        date: 'April 24 1999',
+        ingredientName: 'Beef',
+        date: 'November 23 2021',
         isCheck: false,
       ),
       CheckBoxListTileModel(
-        ingredientName: 'Opera',
-        date: 'December 23 1998',
+        ingredientName: 'Tofu',
+        date: 'October 31 2021',
+        isCheck: false,
+      ),
+      CheckBoxListTileModel(
+        ingredientName: 'Cabbage',
+        date: 'April 1 2021',
+        isCheck: false,
+      ),
+      CheckBoxListTileModel(
+        ingredientName: 'Baked beans',
+        date: 'March 21 2050',
+        isCheck: false,
+      ),
+      CheckBoxListTileModel(
+        ingredientName: 'Chicken stock',
+        date: 'September 11 2021',
         isCheck: false,
       ),
     ];
